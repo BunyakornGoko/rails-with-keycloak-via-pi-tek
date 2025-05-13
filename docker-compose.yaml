@@ -15,10 +15,15 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - keycloak
     extra_hosts:
       - "localhost:host-gateway"
     environment:
-      KEYCLOAK_HOST: keycloak
+      REALM_NAME: BMATraining
+      CLIENT_ID: BMATraining_test
+      CLIENT_SECRET: 7cNqGiISZIbshLf6N5LIg0DVYr3rKYBY
+      KEYCLOAK_URL: http://keycloak:8080
+      REDIRECT_URI: http://localhost:3000/auth/callback
 
   keycloak:
     image: quay.io/keycloak/keycloak

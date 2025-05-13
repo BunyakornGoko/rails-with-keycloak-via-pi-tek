@@ -67,4 +67,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# Add dotenv for environment variables
+gem 'dotenv-rails', groups: [:development, :test]
+
 

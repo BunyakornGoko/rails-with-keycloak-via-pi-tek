@@ -1,5 +1,10 @@
+<% if flash[:alert] %>
+  <div class="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
 
-<% if session[:user_info].present? %>
+<% if session[:user_info].present? && !session[:user_info]["error"] %>
   <div class="user-info">
     <h2>ข้อมูลผู้ใช้</h2>
     <div class="user-profile">
@@ -10,7 +15,7 @@
       <table class="user-data">
         <tr>
           <th>Key</th>
-          <th>value</th>
+          <th>Value</th>
         </tr>
         <% session[:user_info].each do |key, value| %>
           <tr>
@@ -32,10 +37,32 @@
     <%= link_to "Logout", logout_path, class: "button" %>
   </div>
 <% else %>
+  <% if session[:user_info] && session[:user_info]["error"] %>
+    <div class="error-message">
+      <h3>Error retrieving user information:</h3>
+      <p><%= session[:user_info]["error"] %></p>
+    </div>
+  <% end %>
   <%= link_to "Login with Keycloak", login_path, class: "button" %>
 <% end %>
 
 <style>
+  .alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+  }
+  .error-message {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+  }
   .user-info { 
     margin-top: 20px;
     padding: 15px;
