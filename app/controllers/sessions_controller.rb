@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   before_action :set_keycloak_service
 
   def login
-    redirect_to "http://localhost:8080/realms/myrealm/protocol/openid-connect/auth?client_id=myclient&response_type=code&scope=openid&redirect_uri=http://localhost:3000/auth/callback"
+    redirect_to "http://localhost:8080/realms/BMATraining/protocol/openid-connect/auth?client_id=BMATraining_test&response_type=code&scope=openid&redirect_uri=http://localhost:3000/auth/callback"
   end
 
   def callback

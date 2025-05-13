@@ -4,21 +4,21 @@ require "json"
 
 class KeycloakService < ApplicationRecord
     def get_token(code)
-        token_uri = URI("http://localhost:8080/realms/myrealm/protocol/openid-connect/token")
+        token_uri = URI("http://localhost:8080/realms/BMATraining/protocol/openid-connect/token")
 
         response = Net::HTTP.post_form(token_uri, {
         grant_type: "authorization_code",
         code: code,
         redirect_uri: "http://localhost:3000/auth/callback",
-        client_id: "myclient",
-        client_secret: "G0H9Yz2N6xjlP4prbs1CqPkc0wOPw2Y7",
+        client_id: "BMATraining_test",
+        client_secret: "7cNqGiISZIbshLf6N5LIg0DVYr3rKYBY",
         })
         
         JSON.parse(response.body)
     end
 
     def get_user_info(access_token)
-        user_info_uri = URI("http://localhost:8080/realms/myrealm/protocol/openid-connect/userinfo")
+        user_info_uri = URI("http://localhost:8080/realms/BMATraining/protocol/openid-connect/userinfo")
 
         request = Net::HTTP::Get.new(user_info_uri)
         request["Authorization"] = "Bearer #{access_token}"
@@ -30,12 +30,12 @@ class KeycloakService < ApplicationRecord
     end
 
     def keycloak_logout(refresh_token)
-        logout_uri = URI("http://localhost:8080/realms/myrealm/protocol/openid-connect/logout")
+        logout_uri = URI("http://localhost:8080/realms/BMATraining/protocol/openid-connect/logout")
 
         logout_request = Net::HTTP::Post.new(logout_uri)
         logout_request.set_form_data(
-        "client_id" => "myclient",
-        "client_secret" => "G0H9Yz2N6xjlP4prbs1CqPkc0wOPw2Y7",
+        "client_id" => "BMATraining_test",
+        "client_secret" => "7cNqGiISZIbshLf6N5LIg0DVYr3rKYBY",
         "refresh_token" => refresh_token,
         )
 
